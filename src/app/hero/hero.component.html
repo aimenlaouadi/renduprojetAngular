@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3" *ngFor="let fruit of fruits">
+          <div class="card mt-4 small-card">
+            <img [src]="fruit.image" class="card-img-top small-card-img" [alt]="fruit.nom">
+            <div class="card-body">
+              <h5 class="card-title">{{ fruit.nom }}</h5>
+              <p class="card-text">{{ fruit.prixHT }} €</p>
+              <div class="mb-2">
+                <p class="card-text">{{ fruit.quantite }} unités</p>
+                <button class="btn btn-danger btn-sm ml-2 mx-2" (click)="retirerFruit(fruit)">-</button>
+                <button class="btn btn-success btn-sm ml-2" (click)="ajouterFruit(fruit)">+</button>
+              </div>
+              <a href="#" class="btn btn-primary" (click)="ajouterAuPanier(fruit)">Ajouter au panier</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <h1>Panier</h1>
+      <table class="table border border-info">
+        <thead class="bg-light">
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fruit of panier; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ fruit.nom }}</td>
+            <td>{{ fruit.quantite }}</td>
+            <td>{{ fruit.prixHT }}€ HT</td>
+            <td><button class="btn btn-danger btn-sm" (click)="retirerDuPanier(fruit)">X</button></td>
+          </tr>
+
+          <tr *ngIf="panier.length === 0">
+            <td colspan="5">Le panier est vide.</td>
+          </tr>
+
+          <tr *ngIf="panier.length > 0">
+            <td colspan="2">Total</td>
+            <td>{{ totalQuantite() }}</td>
+            <td>{{ totalPrix() }} € Ht</td>
+            <td>{{prixTtc()}} TTC</td>
+            <td><button class="btn btn-danger btn-sm" (click)="viderPanier()">X</button></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
